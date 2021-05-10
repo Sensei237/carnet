@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails{% endblock %}
+
+{% block pageTitle %}
+    Détails 
+    <a href="{{ path("edit", {"id": c.id}) }}" title="Modifier les informations" class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i></a>
+    <a href="{{ path("delete", {"id": c.id}) }}" title="Supprimer ce contact" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+    <a href="{{ path("home") }}" title="Liste des contacts" class="btn btn-primary pull-right"><i class="fa fa-file-text"></i> Afficher toutes la liste</a>
+    
+    <hr class="line">
+{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <div class="row">
+            <div class="col-md-4">
+                {% set img_url = absolute_url(asset('img/avatar.png')) %}
+                    {% if c is defined and c is not null and c.photo is defined and c.photo is not null %}
+                        {% set img_url = absolute_url(asset('img/' ~ c.photo)) %}
+                    {% endif %}
+                <img class="img-full" src="{{ img_url }}" alt="">
+            </div>
+            <div class="col-md-7" style="text-transform: uppercase;padding-top: 20px;">
+                <p>Nom et prénom : {{ c.contactName }}</p>
+                <p>SEXE : {{ c.sexe }}</p>
+                <p>Téléphones : {{ c.telephone }} / {{ c.telephone2 }}</p>
+                <p>Adresse E-mail : {{ c.email }}</p>
+                <p>Ville de résidence : {{ c.villeResidence }}</p>
+                <p>Nationalité : {{ c.nationalite }}</p>
+                <p>Boite postale : {{ c.boitePostale }}</p>
+                <p></p>
+            </div>
+            <div class="col-md-12">
+                <div style="margin-top: 30px;background-color: rgb(66, 61, 61); color: rgb(241, 222, 222); padding: 20px">
+                    <p>{{ c.details }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

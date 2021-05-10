@@ -2,18 +2,43 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+        <title>Carnet d'adresse {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{{ absolute_url(asset('css/bootstrap.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('css/fa/css/font-awesome.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('css/my-styles.css')) }}">
+        
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
         {% endblock %}
-
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+        
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="bg-dark">
+        <header class="header">
+            <h2>Votre carnet d'adresses personnel</h2>
+        </header>
+        <div class="container-fluid">
+            <div class="main-content">
+                <h3 class="page-title">{% block pageTitle %}{% endblock %}</h3>
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        <footer class="fixed-footer">
+            <div class="footer-content">
+                Par sensei237 - contact: 656967064 - email: emmaberanger2@gmail.com
+            </div>
+        </footer>
+
+        <script src="{{ absolute_url(asset('js/jquery.min.js')) }}"></script>
+        <script src="{{ absolute_url(asset('js/bootstrap.min.js')) }}"></script>
+        {% block javascripts %}{% endblock %}
+
+        <script>
+            $('#adresse_image').change(function(){
+                var oFReader = new FileReader();
+                oFReader.readAsDataURL(document.getElementById("adresse_image").files[0]);
+                oFReader.onload = function(oFREvent) {
+                    document.getElementById("previsualisation").src = oFREvent.target.result;
+                };
+            });
+        </script>
     </body>
 </html>
